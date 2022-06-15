@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/papiunenekaeshopdbserver/databases/eshopdb",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:IdentityConnection"
+    },
+    "mssql2": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/papiunenekaeshopdbserver/databases/eshopdb",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:CatalogConnection"
+    },
+    "identityapp1": {
+      "type": "identityapp.aad"
+    }
+  }
+}

@@ -25,6 +25,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MinimalApi.Endpoint.Configurations.Extensions;
 using MinimalApi.Endpoint.Extensions;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,6 +72,7 @@ builder.Services.AddAuthentication(config =>
         ValidateAudience = false
     };
 });
+    //.AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 const string CORS_POLICY = "CorsPolicy";
 builder.Services.AddCors(options =>
@@ -82,6 +85,8 @@ builder.Services.AddCors(options =>
                           builder.AllowAnyHeader();
                       });
 });
+
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
 
 builder.Services.AddControllers();
 
@@ -162,6 +167,8 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseCors(CORS_POLICY);
+
+//app.UseAuthentication();
 
 app.UseAuthorization();
 
