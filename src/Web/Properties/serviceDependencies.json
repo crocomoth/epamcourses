@@ -1,16 +1,16 @@
 {
   "dependencies": {
     "identityapp.aad1": {
-      "type": "identityapp.aad",
+      "type": "identityapp",
       "connectionId": "AzureAD:ClientSecret"
-    },
-    "mssql1": {
-      "type": "mssql",
-      "connectionId": "ConnectionStrings:CatalogConnection"
     },
     "mssql2": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:IdentityConnection"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:CatalogConnection"
     }
   }
 }

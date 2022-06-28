@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "identityapp.aad1": {
+      "type": "identityapp.aad",
+      "connectionId": "AzureAD:ClientSecret"
+    },
+    "mssql2": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/papiunenkacloudxdbserver/databases/maindatabase",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:IdentityConnection"
+    },
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/papiunenkacloudxdbserver/databases/maindatabase",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:CatalogConnection"
+    }
+  }
+}

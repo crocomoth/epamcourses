@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "appInsights1": {
+      "type": "appInsights",
+      "connectionId": "APPINSIGHTS_CONNECTIONSTRING"
+    },
+    "identityapp1": {
+      "type": "identityapp"
+    },
     "mssql1": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:IdentityConnection"
@@ -7,9 +14,6 @@
     "mssql2": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:CatalogConnection"
-    },
-    "identityapp1": {
-      "type": "identityapp"
     }
   }
 }

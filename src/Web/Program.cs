@@ -43,6 +43,8 @@ builder.Services.AddScoped<ITokenClaimsService, IdentityTokenClaimService>();
 builder.Services.AddCoreServices(builder.Configuration);
 builder.Services.AddWebServices(builder.Configuration);
 
+builder.Services.AddApplicationInsightsTelemetry();
+
 // Add memory cache services
 builder.Services.AddMemoryCache();
 builder.Services.AddRouting(options =>
@@ -58,6 +60,7 @@ builder.Services.AddMvc(options =>
              new SlugifyParameterTransformer()));
 
 });
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages(options =>
 {
