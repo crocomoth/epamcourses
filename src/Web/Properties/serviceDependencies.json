@@ -11,6 +11,10 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:CatalogConnection"
+    },
+    "appInsights1": {
+      "type": "appInsights",
+      "connectionId": "APPINSIGHTS_CONNECTIONSTRING"
     }
   }
 }
