@@ -73,7 +73,8 @@ builder.Services.AddAuthentication(config =>
         ValidateIssuer = false,
         ValidateAudience = false
     };
-});
+})
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
     //.AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
     //.AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 

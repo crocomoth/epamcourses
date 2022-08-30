@@ -61,7 +61,19 @@ public class OrderService : IOrderService
 
         await _orderRepository.AddAsync(order);
 
+        await SendDataToBlob(order);
         await SendDataToFunction(order);
+    }
+
+    private async Task SendDataToBlob(Order order)
+    {
+        var httpClient = new HttpClient();
+        var httpmessage = new HttpRequestMessage(HttpMethod.Post, new Uri(_functionUrl))
+        {
+            Content = new StringContent(JsonSerializer.Serialize(order))
+        };
+
+        await httpClient.SendAsync(httpmessage);
     }
 
     private async Task SendDataToFunction(Order order)
