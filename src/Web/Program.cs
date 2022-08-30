@@ -16,6 +16,8 @@ using Microsoft.eShopWeb.Web;
 using Microsoft.eShopWeb.Web.Configuration;
 using Microsoft.eShopWeb.Web.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Azure;
+using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +45,9 @@ builder.Services.AddScoped<ITokenClaimsService, IdentityTokenClaimService>();
 builder.Services.AddCoreServices(builder.Configuration);
 builder.Services.AddWebServices(builder.Configuration);
 
+builder.Services.AddApplicationInsightsTelemetry();
+//builder.Configuration.AddAzureKeyVault(new Uri(Environment.GetEnvironmentVariable("VaultUri")), new DefaultAzureCredential());
+
 // Add memory cache services
 builder.Services.AddMemoryCache();
 builder.Services.AddRouting(options =>
@@ -58,6 +63,7 @@ builder.Services.AddMvc(options =>
              new SlugifyParameterTransformer()));
 
 });
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages(options =>
 {
@@ -93,6 +99,11 @@ builder.Services.AddScoped<HttpService>();
 builder.Services.AddBlazorServices();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddAzureClients(clientBuilder =>
+{
+    clientBuilder.AddBlobServiceClient(builder.Configuration["baseUrls:storageBase:blob"], preferMsi: true);
+    clientBuilder.AddQueueServiceClient(builder.Configuration["baseUrls:storageBase:queue"], preferMsi: true);
+});
 
 var app = builder.Build();
 

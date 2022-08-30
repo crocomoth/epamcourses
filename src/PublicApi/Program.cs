@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using BlazorShared;
@@ -25,10 +25,14 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using MinimalApi.Endpoint.Configurations.Extensions;
 using MinimalApi.Endpoint.Extensions;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Identity.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpoints();
+
+builder.Services.AddApplicationInsightsTelemetry();
 
 //Use to force loading of appsettings.json of test project
 builder.Configuration.AddConfigurationFile("appsettings.test.json");
@@ -69,7 +73,10 @@ builder.Services.AddAuthentication(config =>
         ValidateIssuer = false,
         ValidateAudience = false
     };
-});
+})
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+    //.AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+    //.AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 const string CORS_POLICY = "CorsPolicy";
 builder.Services.AddCors(options =>
@@ -77,11 +84,16 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: CORS_POLICY,
                       builder =>
                       {
-                          builder.WithOrigins(baseUrlConfig.WebBase.Replace("host.docker.internal", "localhost").TrimEnd('/'));
+                          //builder.WithOrigins(baseUrlConfig.WebBase.Replace("host.docker.internal", "localhost").TrimEnd('/'));, baseUrlConfig.WebBases
+                          builder.WithOrigins(baseUrlConfig.WebBases);
                           builder.AllowAnyMethod();
                           builder.AllowAnyHeader();
                       });
 });
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
+
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
 
 builder.Services.AddControllers();
 
@@ -162,6 +174,10 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseCors(CORS_POLICY);
+
+app.UseAuthentication();
+
+//app.UseAuthentication();
 
 app.UseAuthorization();
 

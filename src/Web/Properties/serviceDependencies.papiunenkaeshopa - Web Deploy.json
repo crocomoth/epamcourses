@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "identityapp.aad1": {
+      "secretStore": "AzureAppSettings",
+      "type": "identityapp.aad.downstreamapi",
+      "connectionId": "AzureAD:ClientSecret"
+    },
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/papiunenekaeshopdbserver/databases/eshopdb",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:CatalogConnection"
+    },
+    "mssql2": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/papiunenekaeshopdbserver/databases/eshopdb",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:IdentityConnection"
+    }
+  }
+}
